@@ -1,16 +1,32 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import argparse
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def factorial(n: int) -> int:
+    """Compute the factorial of a non-negative integer."""
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers")
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('Elo22-Elo22')
+def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(description="Compute factorial of a number")
+    parser.add_argument("number", type=int, help="Non-negative integer")
+    return parser.parse_args()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+def main() -> None:
+    args = parse_args()
+    try:
+        result = factorial(args.number)
+    except ValueError as exc:
+        print(f"Error: {exc}")
+        return
+    print(f"Factorial of {args.number} is {result}")
+
+
+if __name__ == "__main__":
+    main()
